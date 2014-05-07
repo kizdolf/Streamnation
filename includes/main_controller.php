@@ -69,7 +69,10 @@
 				break ;
 			}
 		}
-		$_SESSION['current']['current_playlist'] = $final_playlist;
+		if (empty($final_playlist))
+			$_SESSION['current']['current_playlist'] = null;
+		else	
+			$_SESSION['current']['current_playlist'] = $final_playlist;
 	}
 	elseif (isset($_POST['logout']))
 	{
