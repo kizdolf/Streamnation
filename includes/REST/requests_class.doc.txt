@@ -1,0 +1,19 @@
+<- Request ---------------------------------------------------------------------
+
+The Request class handles all the requests which needs to be done on the
+session.
+
+An instance may be contructed from an array containing a session:
+new Request( array( 'current' => 12345 ) );
+Or without any parameter:
+new Request();
+
+The class provides the following public methods :
+Request do_it( $do = string, $it = array() );
+set or unset session, or get var from session.
+Request start_session();
+Start a session.
+Request quit_session();
+exit properly a session, deleting cookie and destroying session.
+
+--------------------------------------------------------------------- Request ->
