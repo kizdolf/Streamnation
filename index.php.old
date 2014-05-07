@@ -1,0 +1,14 @@
+<?php 
+
+	include('test.php'); ?>
+	<h1>COUCOU</h1>
+	<ul> <?php
+	foreach ($final_playlist as  $v) { ?>
+		<li id="<?php echo $v; ?>">
+			<pre>
+				<?php 	$uri = $v['player'];
+			 	print_r($v); ?> 
+			</pre>
+		</li>
+	<?php } ?>
+	</ul>
