@@ -56,7 +56,6 @@
 		  <footer>
 		  	<hr>
 			<p>&copy; fdabiel, mgaspail, jburet. @42</p>
-			<!-- <pre><?php  print_r($_SESSION); ?></pre> -->
 			
 		  </footer>
 		  </div>

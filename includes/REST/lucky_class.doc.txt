@@ -15,7 +15,7 @@ return user's token.
 Lucky get_player( $id );
 open the player with a movie/TVshow id.
 Lucky release_player();
-release the borrowed playback if needed.
+release all the borrowed playback if needed.
 Lucky get_style_list();
 return an array with all the genres available for user.
 Lucky get_movies_list();

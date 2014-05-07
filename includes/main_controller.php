@@ -1,7 +1,7 @@
 <?php
 
 	require_once('includes/REST/RESTClient_class.php');
-	require_once('includes/REST/auth.php');
+	require_once('includes/REST/lucky_class.php');
 	require_once('includes/REST/requests_class.php');
 	require_once('includes/REST/lib_index.php');
 

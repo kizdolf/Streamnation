@@ -22,9 +22,13 @@
 			document.Player.play();
 		  }
 
+		  function play_gif()
+		  {
+		  	
+		  }
 		</script>
 
 	</head>
-	<body>
+	<body onload="play_gif();">
 	<div class="overlay hidden">
 	</div>
