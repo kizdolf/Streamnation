@@ -8,21 +8,22 @@
 	<?php include 'includes/Front/jumbo.php' ?>
 
 	<div class="mainbase">
-		<?php if (isset($_SESSION['current'])) {?>
+	<?php //session_destroy() ?>
+		<?php if (isset($_SESSION['current']['current_playlist'])) {?>
 		<div class="fullmenu">
 			<div class="mainmenu">
 				<h4>Your Playlist</h4>
 				<hr>
 				<ul>
-				<?php foreach($_SESSION['current']['movies'] as $movie) { ?>
-					<li>
-						<p><?php echo $movie[0]['name'] ?></p>
+				<?php foreach($_SESSION['current']['current_playlist'] as $movie) { ?>
+					<li><a href='/index.php?id=<?php echo $movie['id'] ?>'>
+						<p><?php echo $movie['name'] ?></p>
 						<img src="<?php 
-						if (isset($movie[0]['thumb']))
-							echo $movie[0]['thumb'];
+						if (isset($movie['thumb']))
+							echo $movie['thumb'];
 						else
-							echo $movie[0]['backcover'] ?>">
-					</li>
+							echo $movie['backcover'] ?>">
+					</a></li>
 				<?php } ?>
 				</ul>
 			</div>
@@ -46,7 +47,7 @@
 			  } if (count($_SESSION['current']['movies']) > 1){
 			  ?>
 			  <form action="index.php" method="post" >
-				<input type="submit" value="Another Playlist ?" name="next" class="btn btn-group-md">
+				<input type="submit" value="Another Playlist ?" name="next" class="btn btn-group-md pull-right">
 			  </form>
 	<?php 		} 
 			} ?>
@@ -55,7 +56,7 @@
 		  <footer>
 		  	<hr>
 			<p>&copy; fdabiel, mgaspail, jburet. @42</p>
-			<pre><?php  print_r($_SESSION); ?></pre>
+			<!-- <pre><?php  print_r($_SESSION); ?></pre> -->
 			
 		  </footer>
 		  </div>

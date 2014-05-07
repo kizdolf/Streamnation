@@ -7,13 +7,13 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		  </button>
-		  <a class="navbar-brand" href="index.php">LuckyBox
+		  <a class="navbar-brand" href="index.php">LuckyPlayer
 		  <small>(for StreamNation)</small>
 		  </a>
 
 		</div>
 		<div class="navbar-collapse collapse">
-		<?php if (!isset($_SESSION['current'])) {?>
+		<?php if (!isset($_SESSION['current']['all'])) {?>
 		  <form class="navbar-form navbar-right" role="form" action="index.php" method="post">
 			<div class="form-group">
 			  <input type="text" placeholder="Email" class="form-control" name="Email">

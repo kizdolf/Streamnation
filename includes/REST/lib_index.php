@@ -33,29 +33,29 @@
 			//$html.= "<img src='$img' class='backcover'> ";
 			return $html.$player_html;
 		}
-		else
-		{
-			$html = "
-				<h2>Queuded <a href='/index.php?id=".$item['id']."'> ".$item['name']."</a>
-				<input type='hidden' name='id_next' value='".$item['id']."'>
-			</form>";
-			if (isset($item['show']))
-			{
-				$html .= "</h2><p>(From ".$item['show'].", S".$item['season']."E".$item['num_episode'].")</p>";
-			}
-			else
-			{
-				$html .= "</h2>";
-			}
-			return $html;
-		}
+		// else
+		// {
+		// 	$html = "
+		// 		<h2>Queuded <a href='/index.php?id=".$item['id']."'> ".$item['name']."</a>
+		// 		<input type='hidden' name='id_next' value='".$item['id']."'>
+		// 	</form>";
+		// 	if (isset($item['show']))
+		// 	{
+		// 		$html .= "</h2><p>(From ".$item['show'].", S".$item['season']."E".$item['num_episode'].")</p>";
+		// 	}
+		// 	else
+		// 	{
+		// 		$html .= "</h2>";
+		// 	}
+		// 	return $html;
+		// }
 
 	}
 
 	function nothing_to_show()
 	{
-		$html = "<div id='error'><h2>No luck today. Nothing was founded.</h2>
-		<p>Anyway don't worry, there is stuff that you do have, randomly serve by the great Luck!</p></div>";
+		$html = "<div id='error'><h2>No luck today. Nothing was found with those parameters.</h2>
+		<p>Don't worry, and try another request :)</p></div>";
 	    echo $html;
 	}
 
