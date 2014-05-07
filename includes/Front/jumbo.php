@@ -24,7 +24,7 @@
 				<label for="minutes" class="col-sm-12 control-label">How Many Minutes ?</label>
 				<div class="col-sm-offset-5 col-sm-2">
 					<select class="form-control" name="time" id="minutes">
-						<!-- <option value="">Surprise me !</option> -->
+						<option value="">Surprise me !</option>
 						<option value="10">10 minutes</option>
 						<option value="20">20 minutes</option>
 						<option value="30">30 minutes</option>

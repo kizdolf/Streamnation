@@ -60,7 +60,8 @@
 		$lucky->release_player();
 		$final_playlist = $req->do_it('get', array('current_playlist'));
 
-		foreach ($final_playlist as $k => $li) {
+		foreach ($final_playlist as $k => $li) 
+		{
 			if($li['id'] == $_GET['id'])
 			{
 				array_splice($final_playlist, 0, 1);
