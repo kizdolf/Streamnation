@@ -9,13 +9,16 @@
 
 	<div class="mainbase">
 	<?php //session_destroy() ?>
-		<?php if (isset($_SESSION['current']['current_playlist'])) {?>
+		<?php if (isset($_SESSION['current']['current_playlist']) && !empty($_SESSION['current']['current_playlist'])) {?>
 		<div class="fullmenu">
 			<div class="mainmenu">
 				<h4>Your Playlist</h4>
 				<hr>
 				<ul>
-				<?php foreach($_SESSION['current']['current_playlist'] as $movie) { ?>
+				<?php 
+
+				for($i = 1; isset($_SESSION['current']['current_playlist'][$i]); $i++) {
+					$movie = $_SESSION['current']['current_playlist'][$i]; ?>
 					<li><a href='/index.php?id=<?php echo $movie['id'] ?>'>
 						<p><?php echo $movie['name'] ?></p>
 						<img src="<?php 

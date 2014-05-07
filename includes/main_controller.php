@@ -69,9 +69,10 @@
 				array_splice($final_playlist, $k, 1);
 				break ;
 			}
+
 		}
 		if (empty($final_playlist))
-			$_SESSION['current']['current_playlist'] = null;
+			$_SESSION['current']['current_playlist'] = "";
 		else	
 			$_SESSION['current']['current_playlist'] = $final_playlist;
 	}
