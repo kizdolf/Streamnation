@@ -16,7 +16,9 @@
 				<hr>
 				<ul>
 				<?php 
-				foreach($_SESSION['current']['current_playlist'] as $movie) { ?>
+
+				for($i = 1; isset($_SESSION['current']['current_playlist'][$i]); $i++) {
+					$movie = $_SESSION['current']['current_playlist'][$i]; ?>
 					<li><a href='/index.php?id=<?php echo $movie['id'] ?>'>
 						<p><?php echo $movie['name'] ?></p>
 						<img src="<?php 
