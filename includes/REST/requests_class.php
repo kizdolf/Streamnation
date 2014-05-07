@@ -1,6 +1,6 @@
 <?php
 
-	require_once('includes/REST/auth.php');
+	require_once('includes/REST/lucky_class.php');
 
 	/**
 	*  Classe spéciale pour le front end et la gestion des requetes internes

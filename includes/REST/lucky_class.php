@@ -152,9 +152,9 @@
             elseif (!$genre && $duration)
                 return $this->sort_by_duration($medias, $duration);
             elseif ($genre && !$duration)
-                return $this->sort_by_genre($medias,$genre);
+                return $this->sort_by_genre($medias, $genre);
             else
-                return $medias;
+                return $this->sort_by_genre($medias, null);
         }
 
 		private function sort_by_duration($medias, $duration)
@@ -183,7 +183,9 @@
 			$results = array();
 			foreach ($medias as $v)
 			{
-				if (in_array($genre, $v['genres']) && !in_array($v, $results) && !$this->is_borrowed($v))
+				if ($genre == null)
+					$results[] = $v;
+				elseif (in_array($genre, $v['genres']) && !in_array($v, $results) && !$this->is_borrowed($v))
 					$results[] = $v;
 			}
 			return Array($results);
