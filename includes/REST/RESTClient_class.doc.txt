@@ -1,0 +1,18 @@
+<- RESTClient-------------------------------------------------------------------
+
+The RESTClient class handles all the API calls.
+
+An instance is contructed without parameter:
+new RESTClient();
+
+The class provides the following public methods :
+RESTClient get( $uri, $token );
+exec API with a GET method.
+RESTClient post( $uri, $token );
+exec API with a POST method.
+RESTClient put( $uri, $token );
+exec API with a PUT method.
+RESTClient delete( $uri, $token );
+exec API with a DELETE method.
+
+------------------------------------------------------------------ RESTClient ->

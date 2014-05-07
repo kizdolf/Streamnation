@@ -1,0 +1,30 @@
+<- Lucky -----------------------------------------------------------------------
+
+The Lucky class handles all the fetch and sort content from given parameters.
+
+An instance may be contructed with a token which is null by default:
+new Lucky($token = null);
+
+The class provides the following public methods :
+Lucky auth_lucky( $identity, $password );
+check if user is logged in.
+Lucky logout();
+logout current user.
+Lucky get_token();
+return user's token.
+Lucky get_player( $id );
+open the player with a movie/TVshow id.
+Lucky release_player();
+release the borrowed playback if needed.
+Lucky get_style_list();
+return an array with all the genres available for user.
+Lucky get_movies_list();
+return an array with all the movies available for user.
+Lucky get_shows_list();
+return an array with all the TV shows available for user.
+Lucky sort_movies( $duration, $genre );
+sort videos by duration and/or genre.
+Lucky randomizator( $solutions = array() );
+randomize the playlist and return it.
+
+----------------------------------------------------------------------- Lucky ->
