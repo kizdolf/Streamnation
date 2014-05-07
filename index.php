@@ -9,7 +9,7 @@
 
 	<div class="mainbase">
 	<?php //session_destroy() ?>
-		<?php if (isset($_SESSION['current']['current_playlist']) && is_array($_SESSION['current']['current_playlist'])) {?>
+		<?php if (isset($_SESSION['current']['current_playlist']) && !empty($_SESSION['current']['current_playlist'])) {?>
 		<div class="fullmenu">
 			<div class="mainmenu">
 				<h4>Your Playlist</h4>
