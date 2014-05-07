@@ -43,20 +43,15 @@
 
 		public function get_player($id)
 		{
-			$playback = json_decode($this->rest->get("/content/".$id."/playback", $this->token));
+			$playback = json_decode($this->rest->get("/content/".$id, $this->token));
+			//echo "<pre>"; print_r($playback); echo "</pre>";
 			if (isset($playback->error))
 			{
 				return false;
 			}
-			$sha_one = explode('/', $playback->playback->playback_uri);
-			$sha_one = end($sha_one); $sha_one = explode('?', $sha_one); $sha_one = array_shift($sha_one);
-			$player = $this->rest->get('hls/m/'.$sha_one, $this->token);
-			$player = explode('http', $player);
-			if (strstr($player[1], 'native'))
-				$player = 'http'.$player[1];
-			else
-				$player = 'http'.$player[2];
+			$player = $playback->content->hls_playlist[0]->m3u8;
 			$_SESSION['current']['id_playback'] = $id;
+			//echo "<pre>"; print_r($player); echo "</pre>";
 			return $player;
 		}
 
@@ -172,11 +167,10 @@
 				if($medias[$i]['duration'] < $duration)
 				{
 					$tmp = array();
-					//$tmp[] = $medias[$i];
 					$j = $i;
 					while($j < count($medias))
 					{
-						if (!in_array($medias[$j], $tmp) && ($this->duration_somme($tmp) + $medias[$j]['duration'] < $duration))
+						if (!in_array($medias[$j], $tmp) && ($this->duration_somme($tmp) + $medias[$j]['duration'] < $duration) && !$this->is_borrowed($medias[$j]))
 							$tmp[] = $medias[$j];
 						$j++;
 					}
@@ -190,8 +184,7 @@
 		{
 			$results = array();
 			foreach ($medias as $v) {
-			// 		echo '<pre>';print_r($v);echo '</pre>';
-				if (in_array($genre, $v['genres']) && !in_array($v, $results))
+				if (in_array($genre, $v['genres']) && !in_array($v, $results) && !$this->is_borrowed($v))
 					$results[] = $v;
 			}
 			return Array($results);
@@ -207,7 +200,7 @@
 					$j = $i + 1;
 					while($j < count($medias))
 					{
-						if ($this->duration_somme($tmp) + $medias[$j]['duration'] < $duration && in_array($genre, $medias[$j]['genres']) && !in_array($medias[$j], $tmp))
+						if ($this->duration_somme($tmp) + $medias[$j]['duration'] < $duration && in_array($genre, $medias[$j]['genres']) && !in_array($medias[$j], $tmp) && !$this->is_borrowed($medias[$j]))
 							$tmp[] = $medias[$j];
 						$j++;
 					}
@@ -274,6 +267,22 @@
 			}
 		}
 
+
+		/**
+		 * SHA_ONE via content/id/playback
+		 * get 'hls/m/'.$sha_one
+		 * if error => boorowed.
+		 * */
+		private function is_borrowed($item)
+		{
+			$item['player'] = null;
+			$playback = json_decode($this->rest->get("/content/".$item['id'], $this->token));
+			//echo "<pre>"; print_r($playback) ; echo "</pre>";
+			if (isset($playback->error))
+				return true;
+			return false;
+		}
+		
 	}
 
 ?>

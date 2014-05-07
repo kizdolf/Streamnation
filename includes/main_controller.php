@@ -63,7 +63,6 @@
 		foreach ($final_playlist as $k => $li) {
 			if($li['id'] == $_GET['id'])
 			{
-				echo "ICI";
 				array_splice($final_playlist, 0, 1);
 				array_unshift($final_playlist, $li);
 				array_splice($final_playlist, $k, 1);
