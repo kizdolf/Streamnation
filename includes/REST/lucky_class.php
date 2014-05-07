@@ -164,12 +164,16 @@
 			{
 				if($medias[$i]['duration'] < $duration)
 				{
+					$somme = 0;
 					$tmp = array();
 					$j = $i;
 					while($j < count($medias))
 					{
-						if (!in_array($medias[$j], $tmp) && ($this->duration_somme($tmp) + $medias[$j]['duration'] < $duration) && !$this->is_borrowed($medias[$j]))
+						if (!in_array($medias[$j], $tmp) && (($somme + $medias[$j]['duration']) < $duration) && !$this->is_borrowed($medias[$j]))
+						{
+							$somme += $medias[$j]['duration'];		
 							$tmp[] = $medias[$j];
+						}
 						$j++;
 					}
 					array_push($results, $tmp);
@@ -194,6 +198,7 @@
 		private function sort_by_all($medias, $duration, $genre)
 		{
 			$results = array();
+			$somme = 0;
 			for ($i=0; $i < count($medias); $i++)
 			{
 				if (in_array($genre, $medias[$i]['genres']))
@@ -202,8 +207,11 @@
 					$j = $i + 1;
 					while($j < count($medias))
 					{
-						if ($this->duration_somme($tmp) + $medias[$j]['duration'] < $duration && in_array($genre, $medias[$j]['genres']) && !in_array($medias[$j], $tmp) && !$this->is_borrowed($medias[$j]))
+						if ((($somme + $medias[$j]['duration']) < $duration ) && in_array($genre, $medias[$j]['genres']) && !in_array($medias[$j], $tmp) && !$this->is_borrowed($medias[$j]))
+						{
 							$tmp[] = $medias[$j];
+							$somme += $medias[$j]['duration'];						
+						}
 						$j++;
 					}
 					$results[] = $tmp;
