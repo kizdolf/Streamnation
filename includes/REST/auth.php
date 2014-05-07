@@ -33,34 +33,35 @@
 		{
 			$this->release_player();
 			$this->rest->delete('auth', $this->token);
-			foreach ($_SESSION as $v) {
+			foreach ($_SESSION['current'] as $v) 
+			{
 				unset($v);
 			}
 			unset($_SESSION);
 			session_destroy();
 		}
 
-		public function get_token() {
+		public function get_token()
+		{
 			return $this->token;
 		}
 
 		public function get_player($id)
 		{
 			$playback = json_decode($this->rest->get("/content/".$id, $this->token));
-			//echo "<pre>"; print_r($playback); echo "</pre>";
 			if (isset($playback->error))
 			{
 				return false;
 			}
 			$player = $playback->content->hls_playlist[0]->m3u8;
 			$_SESSION['current']['id_playback'] = $id;
-			//echo "<pre>"; print_r($player); echo "</pre>";
 			return $player;
 		}
 
 		private function get_thumb($covers)
 	 	{
-			foreach ($covers as $cov) {
+			foreach ($covers as $cov)
+			{
 				if($cov->type == 'thumb')
 					return ($cov->uri);
 			}
@@ -70,7 +71,8 @@
 		public function release_player()
 		{
 			$me = json_decode($this->rest->get("/current_playback", $this->token));
-			foreach ($me as $key => $value) {
+			foreach ($me as $key => $value)
+			{
 				$this->rest->delete("current_playback/".$value->id, $this->token);
 			}
 		}
@@ -83,15 +85,13 @@
 			foreach ($lib->movies as $movie)
 			{
 				$result = array_merge($result, $movie->genres);
-				$result = array_unique($result);
-				}
+			}
 			$lib = json_decode($this->rest->get('/shows', $this->token));		
 			foreach ($lib->shows as $movie)
 			{
 				$result = array_merge($result, $movie->genres);
-				$result = array_unique($result);
-				}
-			
+			}
+			$result = array_unique($result);
 			return (array_merge($result));
 		}
 
@@ -123,8 +123,10 @@
 			$result = array();
 			foreach ($lib->shows as $show)
 			{
-				foreach ($show->seasons as $season) {
-					foreach ($season->episodes as $episode) {
+				foreach ($show->seasons as $season)
+				{
+					foreach ($season->episodes as $episode)
+					{
 						$tmp['type'] = 'show';
 						$tmp['season'] = $episode->season_number;
 						$tmp['show'] = $show->name;
@@ -142,12 +144,6 @@
 			return ($result);
 		}
 
-
-		/*
-			issue:
-			Because of the flag system, every video can only be included once.
-			LOTS of room for improvement (and trying to make it green).
-		*/
 		public function sort_movies($duration, $genre)
         {
             $medias = $_SESSION['current']['all'];
@@ -164,7 +160,8 @@
 		private function sort_by_duration($medias, $duration)
 		{
 			$results = array();
-			for ($i=0; $i < count($medias); $i++) {
+			for ($i=0; $i < count($medias); $i++)
+			{
 				if($medias[$i]['duration'] < $duration)
 				{
 					$tmp = array();
@@ -184,7 +181,8 @@
 		private function sort_by_genre($medias, $genre)
 		{
 			$results = array();
-			foreach ($medias as $v) {
+			foreach ($medias as $v)
+			{
 				if (in_array($genre, $v['genres']) && !in_array($v, $results) && !$this->is_borrowed($v))
 					$results[] = $v;
 			}
@@ -194,7 +192,8 @@
 		private function sort_by_all($medias, $duration, $genre)
 		{
 			$results = array();
-			for ($i=0; $i < count($medias); $i++) {
+			for ($i=0; $i < count($medias); $i++)
+			{
 				if (in_array($genre, $medias[$i]['genres']))
 				{
 					$tmp[0] = $medias[$i];
@@ -211,17 +210,12 @@
 			return $results;
 		}
 
-
-
-		/*
-			Faire un shuffle pour mélanger le tableau : DONE!
-		*/
 		public function randomizator($solutions = array())
 		{
-			$rand = rand(0, count($solutions) - 1);
-			$ret = $solutions[$rand];
+			//$rand = rand(0, count($solutions) - 1);
+			$ret = $solutions[0];
 			shuffle($ret);
-			return (array('solution' => $ret, 'id_called' => $rand));
+			return (array('solution' => $ret, 'id_called' => 0));
 		}
 
 		public function get_complete_random()
@@ -242,7 +236,8 @@
 
 		private function all_not_flaged($a)
 		{
-			foreach ($a as $v) {
+			foreach ($a as $v)
+			{
 				if($v['flagList'] == 0)
 					return true;
 			}
@@ -258,7 +253,6 @@
 				echo "deleted -> ".$movie->name;
 				$this->rest->delete("current_playback/".$movie->content_ids[0], $this->token);
 			}
-
 			$lib = json_decode($this->rest->get('/shows', $this->token));
 			$result = array();
 			foreach ($lib->shows as $movie)
@@ -268,17 +262,10 @@
 			}
 		}
 
-
-		/**
-		 * SHA_ONE via content/id/playback
-		 * get 'hls/m/'.$sha_one
-		 * if error => boorowed.
-		 * */
 		private function is_borrowed($item)
 		{
 			$item['player'] = null;
 			$playback = json_decode($this->rest->get("/content/".$item['id'], $this->token));
-			//echo "<pre>"; print_r($playback) ; echo "</pre>";
 			if (isset($playback->error))
 				return true;
 			return false;
