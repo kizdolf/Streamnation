@@ -22,6 +22,9 @@
 			else
 			{
 				$this->token  = $data->auth_token;
+				$m = $this->get_movies_list();
+				$s = $this->get_shows_list();
+				$_SESSION['current']['all'] = $m + $s;
 				return true;
 			}
 		}
@@ -147,9 +150,7 @@
 		*/
 		public function sort_movies($duration, $genre)
         {
-            $movies = $this->get_movies_list();
-            $shows = $this->get_shows_list();
-            $medias = $movies + $shows;
+            $medias = $_SESSION['current']['all'];
             if ($duration && $genre)
                 return $this->sort_by_all($medias, $duration, $genre);
             elseif (!$genre && $duration)

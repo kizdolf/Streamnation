@@ -40,7 +40,7 @@
 		$req->do_it('set', array('movies' => $movies));
 		$randomizator = $lucky->randomizator($movies);
 		$final_playlist = $randomizator['solution'];
-		$req->do_it('set', array('current_playlist' => $final_playlist));
+		$_SESSION['current']['current_playlist'] = $final_playlist;
 	}
 	elseif (isset($_POST['next']))
 	{
