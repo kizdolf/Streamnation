@@ -58,19 +58,22 @@
 		$req = new Request();
 		$lucky = new Lucky($req->do_it('get', array('token')));
 		$lucky->release_player();
-		$final_playlist = $req->do_it('get', array('current_playlist'));
+		if (isset($_SESSION['current']['corrent_playlist']))
+		{
+			$final_playlist = $req->do_it('get', array('current_playlist'));
 
-		foreach ($final_playlist as $k => $li) {
-			if($li['id'] == $_GET['id'])
-			{
-				array_splice($final_playlist, 0, 1);
-				array_unshift($final_playlist, $li);
-				array_splice($final_playlist, $k, 1);
-				break ;
+			foreach ($final_playlist as $k => $li) {
+				if($li['id'] == $_GET['id'])
+				{
+					array_splice($final_playlist, 0, 1);
+					array_unshift($final_playlist, $li);
+					array_splice($final_playlist, $k, 1);
+					break ;
+				}
 			}
 		}
 		if (empty($final_playlist))
-			$_SESSION['current']['current_playlist'] = null;
+			$_SESSION['current']['current_playlist'] = "";
 		else	
 			$_SESSION['current']['current_playlist'] = $final_playlist;
 	}
