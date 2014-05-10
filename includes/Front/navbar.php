@@ -7,7 +7,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		  </button>
-		  <a class="navbar-brand" href="index.php">LuckyPlayer
+		  <a class="navbar-brand" href="index.php?show=index">LuckyPlayer
 		  <small>(for StreamNation)</small>
 		  </a>
 

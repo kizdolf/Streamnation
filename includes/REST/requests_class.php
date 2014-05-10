@@ -1,7 +1,5 @@
 <?php
 
-	require_once('includes/REST/lucky_class.php');
-
 	/**
 	*  Classe spéciale pour le front end et la gestion des requetes internes
 	*/
@@ -37,9 +35,9 @@
 
 		public function start_session()
 		{
-			if (session_status() === PHP_SESSION_ACTIVE) {
+			/*if (session_status() === PHP_SESSION_ACTIVE) {
 				return ;
-			}
+			}*/
 			return session_start();
 		}
 

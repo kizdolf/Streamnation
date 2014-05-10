@@ -168,12 +168,12 @@
                 /**
                 * Error
                 */
-                $json = json_encode([
-                    'api' => [
+                $json = json_encode(array(
+                        'api' => array(
                         'status'    => 400,
                         'error'     => $error_msg
-                    ]
-                ]);
+                    )
+                ));
             } else {
                 /**
                 * Result

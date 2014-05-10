@@ -1,7 +1,7 @@
 	<div class="container">
 	<div class="jumbotron">
 	  <div class="container">
-		<?php if(isset($_SESSION['current']) && !isset($final_playlist)) { ?>
+		<?php if(isset($_GET['show']) || (isset($_SESSION['current']) && !isset($_SESSION['current']['current_playlist']))) { ?>
 		  <h1>Welcome on LuckyPlayer</h1>
 		  <form class="" action="index.php" role="form" method="post">
 		  	<div class="form-group">
@@ -9,13 +9,9 @@
 		  		<div class="col-sm-offset-5 col-sm-2">
 				<select class="form-control" name="genre" id="gender">
 				<?php
-				$lucky = new Lucky($_SESSION['current']['token']);
-				$style = $lucky->get_style_list();
-				print_r($style);
+				$style = $_SESSION['current']['genres'];
 				foreach ($style as $elem)
-				{
-					?><option><?php echo $elem; ?></option><?php
-				}
+					echo "<option> $elem </option>";
 				?>
 				</select>
 				</div>
